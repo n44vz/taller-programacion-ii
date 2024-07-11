@@ -68,7 +68,7 @@ while True:
 df = pd.DataFrame(datos)
 
 # Obtener la ruta del directorio del script actual
-script_dir = os.path.dirname(os.path.abspath(__file__))
+script_dir = os.getcwd()
 
 # Crear la ruta completa del archivo CSV
 csv_path = os.path.join(script_dir, "hockey_teams_data.csv")
