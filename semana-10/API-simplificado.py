@@ -2,6 +2,7 @@ import pandas as pd
 import sqlite3
 from flask import Flask, jsonify
 import os
+import sys
 
 app = Flask(__name__)
 
@@ -10,7 +11,7 @@ def inicializar_bd():
     Inicializa la base de datos leyendo un archivo CSV y creando una tabla SQL.
     """
     try:
-        directorio_actual = os.getcwd()
+        directorio_actual = os.path.abspath(sys.argv[0])
         os.chdir(directorio_actual)
         # Lee el archivo CSV
         df = pd.read_excel('Superstore.xlsx')
@@ -41,7 +42,6 @@ def obtener_pedido(order_id):
     try:
         # Ejecuta la consulta SQL para obtener el pedido
         resultado = conn.execute("SELECT * FROM pedidos WHERE [Order ID] = ?", (order_id,)).fetchone()
-        
         if resultado:
             # Obtiene los nombres de las columnas
             columnas = [description[0] for description in conn.execute("SELECT * FROM pedidos LIMIT 1").description]
